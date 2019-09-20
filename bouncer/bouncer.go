@@ -24,7 +24,7 @@ var caKey *rsa.PrivateKey
 var certFile = flag.String("cert", "ca.cer", "the ca cert file")
 var keyFile = flag.String("key", "ca.der", "the ca key file")
 var laddr = flag.String("l", "127.0.0.1:10443", "the address to listen on")
-var endpoint = flag.String("e", "rev.nichi.workers.dev", "the cf worker endpoint")
+var endpoint = flag.String("e", "", "the cf worker endpoint")
 
 func main() {
 	flag.Parse()
