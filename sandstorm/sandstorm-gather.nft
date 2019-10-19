@@ -1,0 +1,8 @@
+#!/usr/bin/nft -f
+flush ruleset
+table ip6 sandstorm {
+        chain chain0 {
+                type filter hook prerouting priority raw; policy accept;
+                tcp dport 12000-15000 notrack tcp dport set 443
+        }
+}
