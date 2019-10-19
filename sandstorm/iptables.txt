@@ -1,0 +1,2 @@
+ip6tables -I PREROUTING -t raw -p tcp --dport <port>:<port+span> -j NFQUEUE --queue-num <queue_id>
+ip6tables -I OUTPUT -t mangle -p tcp -d <server ip> --dport <port> -j NFQUEUE --queue-num <queue_id>
