@@ -1,0 +1,14 @@
+# Maintainer: Nick Cao <nickcao@nichi.co>
+
+pkgname=gnome-meta
+pkgver=1.0.0
+pkgrel=1
+arch=(any)
+pkgdesc='Meta package for gnome'
+depends=(baobab cheese eog evince file-roller gdm gedit gnome-calculator gnome-keyring gnome-menus
+	gnome-color-manager gnome-control-center gnome-disk-utility gnome-shell-extensions
+	gnome-screenshot gnome-session gnome-settings-daemon gnome-shell gnome-video-effects
+	gnome-system-monitor gnome-terminal gnome-themes-extra tracker-miners xdg-user-dirs-gtk
+	gvfs gvfs-afc gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb mousetweaks
+	mutter nautilus networkmanager orca rygel sushi totem tracker gnome-tweaks ibus-rime materia-gtk-theme
+	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra powerline powerline-fonts ttf-roboto)
