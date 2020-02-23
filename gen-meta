@@ -1,0 +1,128 @@
+#!/bin/bash
+shopt -s extglob
+
+format_entry() {
+	local field=$1; shift
+
+	if [[ $1 ]]; then
+		printf '%%%s%%\n' "$field"
+		printf '%s\n' "$@"
+		printf '\n'
+	fi
+}
+
+write_meta() {
+	# blank out all variables
+	local pkgfile=$1
+	local -a _groups _licenses _replaces _depends _conflicts _provides \
+		_optdepends _makedepends _checkdepends
+	local pkgname pkgbase pkgver pkgdesc csize size url arch builddate packager \
+		md5sum sha256sum pgpsig pgpsigsize
+
+	# read info from the zipped package
+	local line var val
+	while read -r line; do
+		[[ ${line:0:1} = '#' ]] && continue
+		IFS=' =' read -r var val < <(printf '%s\n' "$line")
+
+		# normalize whitespace with an extglob
+		declare "$var=${val//+([[:space:]])/ }"
+		case $var in
+			group) _groups+=("$group") ;;
+			license) _licenses+=("$license") ;;
+			replaces) _replaces+=("$replaces") ;;
+			depend) _depends+=("$depend") ;;
+			conflict) _conflicts+=("$conflict") ;;
+			provides) _provides+=("$provides") ;;
+			optdepend) _optdepends+=("$optdepend") ;;
+			makedepend) _makedepends+=("$makedepend") ;;
+			checkdepend) _checkdepends+=("$checkdepend") ;;
+		esac
+	done< <(bsdtar -xOqf "$pkgfile" .PKGINFO)
+
+	# ensure $pkgname and $pkgver variables were found
+	if [[ -z $pkgname || -z $pkgver ]]; then
+		echo "Invalid package file $pkgfile."
+		return 1
+	fi
+
+	# compute base64'd PGP signature
+	if [[ -f "$pkgfile.sig" ]]; then
+		if grep -q 'BEGIN PGP SIGNATURE' "$pkgfile.sig"; then
+			echo "Cannot use armored signatures for packages: $pkgfile.sig"
+			return 1
+		fi
+		pgpsigsize=$(wc -c "$pkgfile.sig" | cut -d' ' -f1)
+		if (( pgpsigsize > 16384 )); then
+			echo "Invalid package signature file $pkgfile.sig."
+			return 1
+		fi
+		pgpsig=$(base64 "$pkgfile.sig" | tr -d '\n')
+	fi
+
+	csize=$(wc -c "$pkgfile" | cut -d' ' -f1)
+
+	# compute checksums
+	md5sum=$(md5sum "$pkgfile")
+	md5sum=${md5sum%% *}
+	sha256sum=$(sha256sum "$pkgfile")
+	sha256sum=${sha256sum%% *}
+
+	# create desc entry
+	mkdir "$pkgname-$pkgver"
+	{
+		format_entry "FILENAME"  "${1##*/}"
+		format_entry "NAME"      "$pkgname"
+		format_entry "BASE"      "$pkgbase"
+		format_entry "VERSION"   "$pkgver"
+		format_entry "DESC"      "$pkgdesc"
+		format_entry "GROUPS"    "${_groups[@]}"
+		format_entry "CSIZE"     "$csize"
+		format_entry "ISIZE"     "$size"
+
+		# add checksums
+		format_entry "MD5SUM"    "$md5sum"
+		format_entry "SHA256SUM" "$sha256sum"
+
+		# add PGP sig
+		format_entry "PGPSIG"    "$pgpsig"
+
+		format_entry "URL"       "$url"
+		format_entry "LICENSE"   "${_licenses[@]}"
+		format_entry "ARCH"      "$arch"
+		format_entry "BUILDDATE" "$builddate"
+		format_entry "PACKAGER"  "$packager"
+		format_entry "REPLACES"  "${_replaces[@]}"
+		format_entry "CONFLICTS" "${_conflicts[@]}"
+		format_entry "PROVIDES"  "${_provides[@]}"
+
+		format_entry "DEPENDS" "${_depends[@]}"
+		format_entry "OPTDEPENDS" "${_optdepends[@]}"
+		format_entry "MAKEDEPENDS" "${_makedepends[@]}"
+		format_entry "CHECKDEPENDS" "${_checkdepends[@]}"
+	} > "$pkgname-$pkgver/desc"
+
+	echo "%FILES%" > "$pkgname-$pkgver/files"
+	bsdtar --exclude='^.*' -tf "$pkgfile" | LC_ALL=C sort -u >> "$pkgname-$pkgver/files"
+
+	return 0
+}
+
+
+
+gen_meta() {
+	if [[ ! -f $1 ]]; then
+    	echo "File $1 not found."
+		return 1
+	fi
+
+	pkgfile=$1
+	if ! bsdtar -tqf "$pkgfile" .PKGINFO > /dev/null 2>&1; then
+		echo "$pkgfile is not a package file, skipping"
+		return 1
+	fi
+
+	write_meta "$pkgfile"
+}
+
+gen_meta $1

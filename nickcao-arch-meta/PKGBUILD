@@ -1,0 +1,16 @@
+# Maintainer: Nick Cao <nickcao@nichi.co>
+pkgname=nickcao-arch-meta
+pkgver=1
+pkgrel=1
+pkgdesc='Minimal package set to define a basic Arch Linux installation for Nick Cao'
+url='https://nichi.co'
+arch=('any')
+license=('GPL')
+depends=(
+  'gnome-tweaks' 'ibus-rime' 'materia-gtk-theme' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'powerline' 'ttf-jetbrains-mono'
+  'powerline-fonts' 'ttf-roboto' 'btrfs-progs' 'efibootmgr' 'chromium' 'code' 'fish' 'git' 'seahorse' 'vim' 'wireguard-tools'
+  'vulkan-intel' 'nvidia-dkms' 'nano' 'mpv' 'sudo' 'telegram-desktop' 'shadowsocks-libev' 'intel-ucode' 'intel-media-driver'
+  'android-tools' 'android-udev' 'asp' 'axel' 'cpupower' 'logrotate' 'man-db' 'man-pages' 'pacutils' 'pacman-contrib' 'rng-tools'
+)
+
+# vim: ts=2 sw=2 et:
