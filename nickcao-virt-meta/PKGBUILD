@@ -1,13 +1,12 @@
 # Maintainer: Nick Cao <nickcao@nichi.co>
 pkgname=nickcao-virt-meta
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc='Minimal package set to define a basic virtualization environment installation for Nick Cao'
 url='https://nichi.co'
 arch=('any')
 license=('GPL')
 depends=(
-  'virt-manager' 'docker' 'ebtables' 'dnsmasq' 'qemu' 'ovmf'
+  'virt-manager' 'ebtables' 'dnsmasq' 'qemu' 'ovmf' 'bridge-utils'
 )
 
-# vim: ts=2 sw=2 et:

