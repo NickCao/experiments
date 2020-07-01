@@ -3,9 +3,19 @@ addEventListener("fetch", event => {
 });
 
 async function handler(event) {
-  response = await fetch(new Request(event.request.url.replace("https://r.nichi.co/", "https://"), event.request));
-  if (response.status == 302 || response.status == 301) {
-    return Response.redirect(response.headers.get("Location").replace("https://", "https://r.nichi.co/"), 302);
+  let src
+  try {
+    src = new URL((new URL(event.request.url)).searchParams.get('src'))
   }
+  catch (e) {
+    return new Response("invalid or missing query param: src", { status: 400 })
+  }
+  response = await fetch(src, event.request);
+  if (response.status == 302 || response.status == 301) {
+    return Response.redirect(new URL(response.headers.get("Location"), src), 302);
+  }
+  response = new Response(response.body, response)
+  response.headers.set('Access-Control-Allow-Origin', '*')
   return response;
 }
+
