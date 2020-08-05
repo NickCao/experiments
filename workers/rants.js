@@ -36,7 +36,9 @@ class ElementHandler {
         break
       case 'div':
       case 'a':
-        element.removeAttribute('href')
+        if (element.hasAttribute('href')) {
+          element.setAttribute('target', '_top')
+        }
         break
     }
   }
