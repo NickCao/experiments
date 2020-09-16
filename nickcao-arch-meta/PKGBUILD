@@ -1,16 +1,39 @@
 # Maintainer: Nick Cao <nickcao@nichi.co>
 pkgname=nickcao-arch-meta
-pkgver=1
+pkgver=2
 pkgrel=1
 pkgdesc='Minimal package set to define a basic Arch Linux installation for Nick Cao'
 url='https://nichi.co'
 arch=('any')
 license=('GPL')
 depends=(
-  'gnome-tweaks' 'ibus-rime' 'materia-gtk-theme' 'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'powerline' 'ttf-jetbrains-mono'
-  'powerline-fonts' 'ttf-roboto' 'btrfs-progs' 'efibootmgr' 'chromium' 'code' 'fish' 'git' 'seahorse' 'vim' 'wireguard-tools'
-  'vulkan-intel' 'nvidia-dkms' 'nano' 'mpv' 'sudo' 'telegram-desktop' 'shadowsocks-libev' 'intel-ucode' 'intel-media-driver'
-  'android-tools' 'android-udev' 'asp' 'axel' 'cpupower' 'logrotate' 'man-db' 'man-pages' 'pacutils' 'pacman-contrib' 'rng-tools'
+  # base system
+  'linux-zen' 'linux-zen-headers' 'linux-firmware' 'intel-ucode' 'sudo' 'busybox'
+  'vim' 'man-db' 'man-pages' 'logrotate' 'git' 'fish' 'powerline' 'wget' 'pam-u2f'
+  # hw related
+  'intel-media-driver' 'vulkan-intel' 'nvidia-dkms' 'nvidia-prime' 'android-udev'
+  'rng-tools' 'android-tools' 'btrfs-progs' 'efibootmgr' 'wireguard-tools'
+  'cpupower' 'smartmontools'
+  # fonts
+  'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'ttf-roboto'
+  'ttf-jetbrains-mono' 'powerline-fonts'
+  # gnome
+  'gdm' 'mutter' 'gnome-shell' 'gnome-session' 'gnome-shell-extensions' 'gnome-settings-daemon'
+  'gnome-control-center' 'gnome-terminal' 'gnome-keyring' 'gnome-disk-utility'
+  'gnome-system-monitor' 'gnome-screenshot' 'gnome-menus' 'xdg-user-dirs-gtk'
+  'materia-gtk-theme' 'gnome-tweaks' 'nautilus' 'libappindicator-gtk3'
+  'gnome-shell-extension-appindicator-git' 'numix-circle-icon-theme-git'
+  # gnome extras
+  'ibus-rime' 'baobab' 'eog' 'evince' 'file-roller' 'gvfs' 'gvfs-mtp' 'mousetweaks'
+  'seahorse' 'sushi' 'tracker' 'tracker-miners' 'networkmanager'
+  # arch related
+  'pacutils' 'pacman-contrib' 'devtools' 'asp' 'aurutils'
+  # apps
+  'chromium' 'code' 'telegram-desktop' 'mpv' 'podman' 'crun'
+  # misc
+  'openbsd-netcat' 'yubikey-manager-qt' 'wireshark-qt' 'v2ray'
+  # dev
+  'clion' 'clion-jre' 'clion-cmake' 'clion-gdb' 'clion-lldb' 'go' 'goland' 'goland-jre' 'terraform'
 )
 
 # vim: ts=2 sw=2 et:
