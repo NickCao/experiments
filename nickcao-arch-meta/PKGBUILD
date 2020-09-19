@@ -13,7 +13,7 @@ depends=(
   # hw related
   'intel-media-driver' 'vulkan-intel' 'nvidia-dkms' 'nvidia-prime' 'android-udev'
   'rng-tools' 'android-tools' 'btrfs-progs' 'efibootmgr' 'wireguard-tools'
-  'cpupower' 'smartmontools'
+  'cpupower' 'smartmontools' 'libu2f-host'
   # fonts
   'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'ttf-roboto'
   'ttf-jetbrains-mono' 'powerline-fonts'
