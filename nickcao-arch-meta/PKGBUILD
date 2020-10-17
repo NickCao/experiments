@@ -1,6 +1,6 @@
 # Maintainer: Nick Cao <nickcao@nichi.co>
 pkgname=nickcao-arch-meta
-pkgver=2
+pkgver=3
 pkgrel=1
 pkgdesc='Minimal package set to define a basic Arch Linux installation for Nick Cao'
 url='https://nichi.co'
@@ -13,7 +13,7 @@ depends=(
   # hw related
   'intel-media-driver' 'vulkan-intel' 'nvidia-dkms' 'nvidia-prime' 'android-udev'
   'rng-tools' 'android-tools' 'btrfs-progs' 'efibootmgr' 'wireguard-tools'
-  'cpupower' 'smartmontools' 'libu2f-host'
+  'cpupower' 'smartmontools' 'libu2f-host' 'nano' 'nftables' 'iperf3'
   # fonts
   'noto-fonts-cjk' 'noto-fonts-emoji' 'noto-fonts-extra' 'ttf-roboto'
   'ttf-jetbrains-mono' 'powerline-fonts'
@@ -31,7 +31,7 @@ depends=(
   # apps
   'chromium' 'code' 'telegram-desktop' 'mpv' 'podman' 'crun'
   # misc
-  'openbsd-netcat' 'yubikey-manager-qt' 'wireshark-qt' 'v2ray'
+  'openbsd-netcat' 'yubikey-manager-qt' 'wireshark-qt' 'v2ray' 'minio-client' 'mtr' 'virtualbox' 'virtualbox-guest-iso'
   # dev
   'clion' 'clion-jre' 'clion-cmake' 'clion-gdb' 'clion-lldb' 'go' 'goland' 'goland-jre' 'terraform'
 )
