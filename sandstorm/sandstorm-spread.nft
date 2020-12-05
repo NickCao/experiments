@@ -1,8 +1,0 @@
-#!/usr/bin/nft -f
-flush ruleset
-table ip6 sandstorm {
-        chain chain0 {
-                type filter hook output priority raw; policy accept;
-                ip6 daddr 2001:19f0:6001:4bd2:5400:2ff:fe55:f385 tcp dport 443 notrack tcp dport set numgen random mod 10 offset 57390
-        }
-}
